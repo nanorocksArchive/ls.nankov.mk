@@ -18,6 +18,11 @@ class CreateArticlesTable extends Migration
             $table->string('url');
             $table->string('title');
             $table->string('description');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });
