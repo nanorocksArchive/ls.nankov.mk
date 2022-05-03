@@ -1,15 +1,33 @@
 @extends('layouts.app')
-
+@section('title')
+    Home
+@endsection
 @section('content')
+    <div class="jumbotron jumbotron-fluid d-sm-block d-md-block d-none d-lg-block">
+        <div class="container">
+            <h1 class="display-4">Dashboard</h1>
+            <p class="lead">
+                Manage articles by adding new, filtering them and many more ...
+            </p>
+        </div>
+    </div>
+
     {{-- <h1>Welcome {{ auth()->user()->name }} !!</h1> --}}
-    <div class="container text-right">
-        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Filter
-        </button>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add new Article
-        </button>
+    <div class="container pt-3">
+        <div class="d-flex justify-content-between mb-3">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="feather feather-filter">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+            </button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                New Article
+            </button>
+        </div>
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -33,9 +51,18 @@
 
     <div class="container">
         <form>
-            <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Search article</label>
-                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Sarch by name or description">
+            <label for="exampleFormControlInput1" class="form-label">Search article</label>
+            <div class="mb-3 d-flex">
+                <input type="email" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Search by name or description">
+                <button type="type" class="btn btn-secondary btn-sm ml-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="feather feather-search">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Filter by category</label>
@@ -62,7 +89,7 @@
                             <h5 class="card-title">Special title treatment</h5>
                             <p class="card-text">With supporting text below as a natural lead-in to additional content.
                             </p>
-                            <a href="#" class="btn btn-outline-primary">Go somewhere</a>
+                            <a href="#" class="btn btn-outline-info">Go somewhere</a>
                         </div>
                         <div class="card-footer text-muted">
                             2 days ago

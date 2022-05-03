@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->middleware(['auth']);
-
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth']);
+Route::controller(AppController::class)->middleware(['auth'])->group(function () {
+    Route::get('/', 'home');
+    Route::get('/home', 'home')->name('home');
+    Route::get('/history', 'history')->name('history');
+    Route::get('/analytics', 'analytics')->name('analytics');
+    Route::get('/notifications', 'notifications')->name('notifications');
+});
