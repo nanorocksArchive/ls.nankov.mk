@@ -17,6 +17,4 @@
             dispaly tables for articles history and categories crud table
         </div>
     </div>
-
-
 @endsection

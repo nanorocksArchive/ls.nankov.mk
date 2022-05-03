@@ -12,6 +12,8 @@
         </div>
     </div>
 
+    <div id="app-react"></div>
+
     {{-- <h1>Welcome {{ auth()->user()->name }} !!</h1> --}}
     <div class="container pt-3">
         <div class="d-flex justify-content-between mb-3">
@@ -143,3 +145,4 @@
         </nav>
     </div>
 @endsection
+
