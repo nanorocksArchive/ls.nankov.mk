@@ -11,7 +11,7 @@
             </p>
         </div>
     </div>
-    <div class="container pt-3">
+    <div class="container pt-3 pb-5">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <canvas id="myChart" width="400" height="400"></canvas>
