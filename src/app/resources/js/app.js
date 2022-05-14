@@ -1,2 +1,3 @@
 require('./bootstrap');
-require("./react/App");
+require("./react/views/pages/DashboardPage");
+require("./react/views/pages/HistoryPage");

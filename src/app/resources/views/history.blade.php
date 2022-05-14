@@ -13,8 +13,6 @@
     </div>
 
     <div class="container pt-3">
-        <div class="row">
-            dispaly tables for articles history and categories crud table
-        </div>
+        <div id="app-history"></div>
     </div>
 @endsection
