@@ -1,33 +1,33 @@
 import React from "react";
 
-export default function PaginationOrganism() {
+export default function PaginationOrganism({ setUrl, data }) {
+    const handleNewFetch = (url) => setUrl(url);
+
     return (
         <div className="container pt-4">
             <nav aria-label="...">
                 <ul className="pagination">
-                    <li className="page-item disabled">
-                        <a className="page-link">Previous</a>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            1
-                        </a>
-                    </li>
-                    <li className="page-item active" aria-current="page">
-                        <a className="page-link" href="#">
-                            2
-                        </a>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            3
-                        </a>
-                    </li>
-                    <li className="page-item">
-                        <a className="page-link" href="#">
-                            Next
-                        </a>
-                    </li>
+                    {data !== null &&
+                        data.links.map((link, index) => {
+                            return (
+                                <li
+                                    className={`page-item ${
+                                        link.active ? "active" : ""
+                                    }
+                                    ${link.url === null ? "disabled" : ""}`}
+                                    key={index}
+                                >
+                                    <a
+                                        className={`page-link cursor-pointer`}
+                                        onClick={() => handleNewFetch(link.url)}
+                                    >
+                                        {link.label
+                                            .replace("&laquo;", "")
+                                            .replace("&raquo;", "")}
+                                    </a>
+                                </li>
+                            );
+                        })}
                 </ul>
             </nav>
         </div>

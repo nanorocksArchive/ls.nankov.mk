@@ -1,16 +1,20 @@
 import React from "react";
 
-export default function ArticleItemOrganism() {
+export default function ArticleItemOrganism({item}) {
+
+    const moveToHistory = (id) => {
+        alert(id)
+    }
+
     return (
         <div className="col-md-4 my-2">
             <div className="card text-center">
                 <div className="card-body">
-                    <h5 className="card-title">Special title treatment</h5>
+                    <h5 className="card-title">{item.title}</h5>
                     <p className="card-text text-truncate">
-                        With supporting text below as a natural lead-in to
-                        additional content.
+                        {item.description}
                     </p>
-                    <a href="#" className="btn btn-outline-info">
+                    <a href={item.url} className="btn btn-outline-info" target={'_blank'}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -30,9 +34,9 @@ export default function ArticleItemOrganism() {
                     </a>
                 </div>
                 <div className="card-footer d-flex justify-content-between">
-                    <a href="#">
+                    <div onClick={() => moveToHistory(item.id)}>
                         <svg
-                            className="text-danger feather feather-trash-2"
+                            className="text-danger feather feather-trash-2 cursor-pointer"
                             xmlns="http://www.w3.org/2000/svg"
                             width="17"
                             height="17"
@@ -48,9 +52,9 @@ export default function ArticleItemOrganism() {
                             <line x1="10" y1="11" x2="10" y2="17"></line>
                             <line x1="14" y1="11" x2="14" y2="17"></line>
                         </svg>
-                    </a>
+                    </div>
                     <div>
-                        <div className="text-muted small mt-1">2 days ago</div>
+                        <div className="text-muted small mt-1">{item.created_at}</div>
                     </div>
                 </div>
             </div>

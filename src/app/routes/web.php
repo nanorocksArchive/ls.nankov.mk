@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Ajax\ArticlesController;
+use App\Http\Controllers\Ajax\CategoryController;
 use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,9 @@ Route::controller(AppController::class)->middleware(['auth'])->group(function ()
     Route::get('/analytics', 'analytics')->name('analytics');
     Route::get('/notifications', 'notifications')->name('notifications');
 });
+
+
+Route::get('/articles', [ArticlesController::class, 'index'])->middleware(['auth'])->name('ajax.articles');
+Route::get('/categories', [CategoryController::class, 'index'])->middleware(['auth'])->name('ajax.categories');
+Route::post('/articles/store', [CategoryController::class, 'index'])->middleware(['auth'])->name('ajax.articles.store');
+

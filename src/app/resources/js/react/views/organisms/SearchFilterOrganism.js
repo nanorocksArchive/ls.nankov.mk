@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import ModalMolecule from "../molecules/ModalMolecule";
 
 export default function SearchFilterOrganism() {
 
-    const [toggleFilter, setToggleFilter] = useState(false)
+    const [toggleFilter, setToggleFilter] = useState(true)
 
     const options = [
         { value: "chocolate", label: "Chocolate" },
@@ -35,56 +36,7 @@ export default function SearchFilterOrganism() {
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
                     </button>
-                    <button
-                        type="button"
-                        className="btn btn-info"
-                        data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"
-                    >
-                        New Article
-                    </button>
-                </div>
-                <div
-                    className="modal fade"
-                    id="exampleModal"
-                    tabIndex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                >
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h5
-                                    className="modal-title"
-                                    id="exampleModalLabel"
-                                >
-                                    Modal title
-                                </h5>
-                                <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div className="modal-body">...</div>
-                            <div className="modal-footer">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                >
-                                    Close
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                >
-                                    Save changes
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                    <ModalMolecule />
                 </div>
             </div>
             <div className={`container ${toggleFilter ? "d-none" : ""}`}>
@@ -97,7 +49,7 @@ export default function SearchFilterOrganism() {
                     </label>
                     <div className="mb-3 d-flex">
                         <input
-                            type="email"
+                            type="text"
                             className="form-control"
                             id="exampleFormControlInput1"
                             placeholder="Search by name or description"

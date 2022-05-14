@@ -4,9 +4,9 @@ import { createRoot } from "react-dom/client";
 import './../../style.css'
 
 
-export default function DashboardPage() {
+export default function DashboardPage(props) {
   return (
-    <DashboardTemplate />
+    <DashboardTemplate {...props}/>
   )
 }
 

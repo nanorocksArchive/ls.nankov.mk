@@ -1,4 +1,8 @@
-.select__control, .select__menu {
+.select__control, .select__menu, #creatable-select2, .css-1s2u09g-control, .css-26l3qy-menu {
     color: #f8f9fa !important;
     background-color: #343a40 !important;
+}
+
+.cursor-pointer{
+    cursor: pointer;
 }

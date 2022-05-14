@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Category;
-class Article extends Model
+
+class ArticleCategory extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -17,10 +16,8 @@ class Article extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'url',
-        'title',
-        'description',
-        'deleted_at'
+        'article_id',
+        'category_id',
     ];
 
     /**
@@ -28,15 +25,14 @@ class Article extends Model
      */
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'articles_categories');
+        return $this->hasMany(Category::class);
     }
 
     /**
      *
      */
-    public function user()
+    public function articles()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Article::class);
     }
-
 }

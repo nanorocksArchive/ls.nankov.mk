@@ -2,9 +2,9 @@ import React from 'react'
 import HistoryTemplate from '../templates/HistoryTemplate'
 import { createRoot } from "react-dom/client";
 
-export default function HistoryPage() {
+export default function HistoryPage(props) {
   return (
-    <HistoryTemplate />
+    <HistoryTemplate {...props}/>
   )
 }
 
