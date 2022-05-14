@@ -5,30 +5,52 @@ import SearchFilterOrganism from "../organisms/SearchFilterOrganism";
 import { useFetchApi } from "./../../hooks/useFetchApi";
 
 export default function DashboardTemplate(props) {
-    const [url, setUrl] = useState("/articles");
-    const [data] = useFetchApi(url);
+    const [urlArticles, setUrlArticles] = useState("/articles");
+    const [urlCategories, setUrlCategories] = useState("/categories");
+
+    const { data: articles } = useFetchApi(urlArticles);
+    const { data: categories } = useFetchApi(urlCategories);
+
+    if (articles === null) {
+        return (
+            <>
+                <div className="container">
+                    <div className="row">
+                        <h3 className="text-light">Loading...</h3>
+                    </div>
+                </div>
+            </>
+        );
+    }
 
     return (
         <>
-            <SearchFilterOrganism />
+            <SearchFilterOrganism
+                categories={categories}
+                setUrlCategories={setUrlCategories}
+                urlArticles={urlArticles}
+                setUrlArticles={setUrlArticles}
+            />
             <div className="container">
                 <div className="row">
-                    <Suspense
-                        fallback={<h4 className="text-light">Loading...</h4>}
-                    >
-                        {data !== null &&
-                            data.data.map((item, index) => {
-                                return (
-                                    <ArticleItemOrganism
-                                        item={item}
-                                        key={index}
-                                    />
-                                );
-                            })}
-                    </Suspense>
+                    {articles !== null && articles.data.length === 0 && <h3 className="px-3 text-light">No articles...</h3>}
+                    {articles !== null &&
+                        articles.data.map((item, index) => {
+                            return (
+                                <ArticleItemOrganism
+                                    item={item}
+                                    key={index}
+                                    setUrlArticles={setUrlArticles}
+                                    urlArticles={urlArticles}
+                                />
+                            );
+                        })}
                 </div>
             </div>
-            <PaginationOrganism setUrl={setUrl} data={data} />
+            <PaginationOrganism
+                setUrlArticles={setUrlArticles}
+                data={articles}
+            />
         </>
     );
 }

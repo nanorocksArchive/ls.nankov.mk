@@ -21,9 +21,9 @@ class Category extends Model
     /**
      *
      */
-    public function categories()
+    public function articles()
     {
-        return $this->hasMany(Article::class);
+        return $this->belongsToMany(Article::class, 'articles_categories');
     }
 
     /**

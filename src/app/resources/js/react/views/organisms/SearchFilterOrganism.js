@@ -1,16 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import ModalMolecule from "../molecules/ModalMolecule";
+import { capitalizeFirstLetter } from "./../../util/index";
 
-export default function SearchFilterOrganism() {
+export default function SearchFilterOrganism({ categories, setUrlCategories, setUrlArticles, urlArticles }) {
+    const [toggleFilter, setToggleFilter] = useState(true);
+    const [options, setOptions] = useState([]);
 
-    const [toggleFilter, setToggleFilter] = useState(true)
+    useEffect(() => {
+        setOptions(
+            categories.map((item) => ({
+                value: item.id,
+                label: capitalizeFirstLetter(item.name),
+            }))
+        );
+    }, [categories]);
 
-    const options = [
-        { value: "chocolate", label: "Chocolate" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "vanilla", label: "Vanilla" },
-    ];
+    const [loadingFilter, setLoadingFilter] = useState(false);
+
+    const url = document
+        .querySelector('meta[name="app-url"]')
+        .getAttribute("content");
+
+    const filterByCategories = (options) => {
+        setLoadingFilter(!loadingFilter)
+
+        const categoryIds = [...options.map((item) => item.value)]
+
+        const inCategoryParam = categoryIds.length === 0 ? "" : `inCategory=${categoryIds}`
+
+        setUrlArticles(`${url}/articles?${inCategoryParam}`);
+
+        setTimeout(() => {
+            setLoadingFilter(false);
+        }, 1000)
+    }
+
+    const [loadingFilterSearch, setLoadingFilterSearch] = useState(false);
+
+    const [searchWord, setSearchWord] = useState("");
+
+    const filterByWord = (clear = false) => {
+        setLoadingFilterSearch(!loadingFilter)
+
+        const wordParam = clear ? searchWord.length === 0 ? "" : `word=${searchWord}` : ''
+
+        setUrlArticles(`${url}/articles?${wordParam}`)
+
+        setTimeout(() => {
+            setLoadingFilterSearch(false);
+        }, 1000)
+    }
 
     return (
         <>
@@ -36,7 +76,7 @@ export default function SearchFilterOrganism() {
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
                     </button>
-                    <ModalMolecule />
+                    <ModalMolecule options={options} />
                 </div>
             </div>
             <div className={`container ${toggleFilter ? "d-none" : ""}`}>
@@ -47,16 +87,19 @@ export default function SearchFilterOrganism() {
                     >
                         Search article
                     </label>
-                    <div className="mb-3 d-flex">
+                    <div className="mb-0 d-flex">
                         <input
                             type="text"
                             className="form-control"
                             id="exampleFormControlInput1"
                             placeholder="Search by name or description"
+                            defaultValue={searchWord}
+                            onChange={(e) => setSearchWord(e.target.value)}
                         />
                         <button
-                            type="type"
+                            type="button"
                             className="btn btn-secondary btn-sm ml-2"
+                            onClick={filterByWord}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -79,8 +122,18 @@ export default function SearchFilterOrganism() {
                                 ></line>
                             </svg>
                         </button>
+                        <button
+                            type="button"
+                            className="btn btn-secondary btn-sm ml-2"
+                            onClick={() => { filterByWord(false); setSearchWord("") }}
+                        >
+                            Clear
+                        </button>
                     </div>
-                    <div className="mb-3">
+                    {loadingFilterSearch && (
+                        <small className="text-light">Loading...</small>
+                    )}
+                    <div className="mt-3 mb-3">
                         <label
                             htmlFor="exampleFormControlInput1"
                             className="form-label"
@@ -88,13 +141,16 @@ export default function SearchFilterOrganism() {
                             Filter by category
                         </label>
                         <Select
-                            defaultValue={[options[2]]}
                             isMulti
                             name="colors"
                             options={options}
                             className="basic-multi-select bg-dark text-light"
                             classNamePrefix="select"
+                            onChange={(e) => filterByCategories(e)}
                         />
+                        {loadingFilter && (
+                            <small className="text-light">Loading...</small>
+                        )}
                     </div>
                 </form>
             </div>

@@ -23,5 +23,5 @@ export const useFetchApi = (endpoint = "/articles", method = "GET") => {
             .then((data) => setData(data));
     }, [endpoint]);
 
-    return [data, setData];
+    return {data, setData};
 };

@@ -1,12 +1,8 @@
 import React from "react";
 import CreatableSelect from "react-select/creatable";
 
-export default function ModalMolecule() {
-    const options = [
-        { value: "chocolate", label: "Chocolate" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "vanilla", label: "Vanilla" },
-    ];
+export default function ModalMolecule({ options }) {
+
 
     const handleChange = (newValue, actionMeta) => {
         console.group("Value Changed");

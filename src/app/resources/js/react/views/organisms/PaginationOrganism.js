@@ -1,7 +1,11 @@
 import React from "react";
 
-export default function PaginationOrganism({ setUrl, data }) {
-    const handleNewFetch = (url) => setUrl(url);
+export default function PaginationOrganism({ setUrlArticles, data }) {
+    const handleNewFetch = (url) => setUrlArticles(url);
+
+    if (data !== null && data.total < data.per_page) {
+        return null;
+    }
 
     return (
         <div className="container pt-4">

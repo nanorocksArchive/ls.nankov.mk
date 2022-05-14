@@ -1,20 +1,27 @@
 import React from "react";
+import { updateApiCall } from "../../services/CRUDService";
 
-export default function ArticleItemOrganism({item}) {
-
+export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles }) {
     const moveToHistory = (id) => {
-        alert(id)
-    }
+        alert("Soft deleting article with id: " + id);
+        updateApiCall(`/articles/${id}/update`).then((data) => {
+            setUrlArticles(urlArticles + '?soft=' + id)
+        });
+    };
 
     return (
         <div className="col-md-4 my-2">
-            <div className="card text-center">
+            <div className="card text-center h-100">
                 <div className="card-body">
                     <h5 className="card-title">{item.title}</h5>
                     <p className="card-text text-truncate">
                         {item.description}
                     </p>
-                    <a href={item.url} className="btn btn-outline-info" target={'_blank'}>
+                    <a
+                        href={item.url}
+                        className="btn btn-outline-info"
+                        target={"_blank"}
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="20"
@@ -54,7 +61,9 @@ export default function ArticleItemOrganism({item}) {
                         </svg>
                     </div>
                     <div>
-                        <div className="text-muted small mt-1">{item.created_at}</div>
+                        <div className="text-muted small mt-1">
+                            {item.created_at}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Category;
+
 class Article extends Model
 {
     use HasFactory;
@@ -38,5 +39,4 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
-
 }

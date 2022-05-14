@@ -28,4 +28,5 @@ Route::controller(AppController::class)->middleware(['auth'])->group(function ()
 Route::get('/articles', [ArticlesController::class, 'index'])->middleware(['auth'])->name('ajax.articles');
 Route::get('/categories', [CategoryController::class, 'index'])->middleware(['auth'])->name('ajax.categories');
 Route::post('/articles/store', [CategoryController::class, 'index'])->middleware(['auth'])->name('ajax.articles.store');
+Route::put('/articles/{id}/update', [CategoryController::class, 'moveToHistory'])->middleware(['auth'])->name('ajax.articles.store');
 
