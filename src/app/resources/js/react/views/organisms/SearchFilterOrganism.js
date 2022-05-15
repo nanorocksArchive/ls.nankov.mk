@@ -76,7 +76,7 @@ export default function SearchFilterOrganism({ categories, setUrlCategories, set
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
                     </button>
-                    <ModalMolecule options={options} />
+                    <ModalMolecule options={options} setUrlCategories={setUrlCategories}/>
                 </div>
             </div>
             <div className={`container ${toggleFilter ? "d-none" : ""}`}>

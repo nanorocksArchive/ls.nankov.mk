@@ -3,7 +3,7 @@ import { updateApiCall } from "../../services/CRUDService";
 
 export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles }) {
     const moveToHistory = (id) => {
-        alert("Soft deleting article with id: " + id);
+        alert("Soft delete operation for article...");
         updateApiCall(`/articles/${id}/update`).then((data) => {
             setUrlArticles(urlArticles + '?soft=' + id)
         });
@@ -41,7 +41,7 @@ export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles 
                     </a>
                 </div>
                 <div className="card-footer d-flex justify-content-between">
-                    <div onClick={() => moveToHistory(item.id)}>
+                    <div onClick={() => moveToHistory(item.article_id)}>
                         <svg
                             className="text-danger feather feather-trash-2 cursor-pointer"
                             xmlns="http://www.w3.org/2000/svg"

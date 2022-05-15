@@ -29,7 +29,7 @@ class AppController extends Controller
             return $category->articles_count;
         });
 
-        $colors = $categories->map(function ($category) {
+        $colors = $categories->map(function () {
             foreach (array('r', 'g', 'b') as $color) {
                 $rgbColor[$color] = mt_rand(0, 255);
             }
