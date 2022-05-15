@@ -26,11 +26,13 @@ export const storeApiCall = (endpoint, method = "POST", body) => {
 
     const urlPath = endpoint.includes(url) ? endpoint : `${url}${endpoint}`;
 
+    console.log("body", body);
     return fetch(`${urlPath}`, {
-        method,
+        body: JSON.stringify(body),
+        method: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
+            "Content-type": "application/json"
         },
-        body: JSON.stringify(body)
     }).then((res) => res.json());
 };

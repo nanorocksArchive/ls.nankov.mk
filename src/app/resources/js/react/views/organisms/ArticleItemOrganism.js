@@ -1,4 +1,5 @@
 import React from "react";
+import Moment from "react-moment";
 import { updateApiCall } from "../../services/CRUDService";
 
 export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles }) {
@@ -62,7 +63,7 @@ export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles 
                     </div>
                     <div>
                         <div className="text-muted small mt-1">
-                            {item.created_at}
+                            {item.created_at !== null && <Moment fromNow>{item.created_at}</Moment>}
                         </div>
                     </div>
                 </div>

@@ -3994,12 +3994,14 @@ var storeApiCall = function storeApiCall(endpoint) {
   var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
   var url = document.querySelector('meta[name="app-url"]').getAttribute("content");
   var urlPath = endpoint.includes(url) ? endpoint : "".concat(url).concat(endpoint);
+  console.log("body", body);
   return fetch("".concat(urlPath), {
-    method: method,
+    body: JSON.stringify(body),
+    method: "POST",
     headers: {
-      "X-CSRF-TOKEN": csrfToken
-    },
-    body: JSON.stringify(body)
+      "X-CSRF-TOKEN": csrfToken,
+      "Content-type": "application/json"
+    }
   }).then(function (res) {
     return res.json();
   });
@@ -4073,21 +4075,25 @@ function ModalMolecule(_ref) {
       setCategory = _useState4[1];
 
   var handleChange = function handleChange(newValue, actionMeta) {
-    setCategory(newValue.label);
+    if (actionMeta.action === "clear") {
+      setCategory(null);
+      return;
+    } else {
+      console.log("newValue.label", newValue.label);
+      setCategory(newValue.label);
+    }
   };
 
   var storeArticle = function storeArticle(e) {
     e.preventDefault();
+    console.log(url, category);
     (0,_services_CRUDService__WEBPACK_IMPORTED_MODULE_2__.storeApiCall)("/articles/store", "POST", {
       url: url,
       category: category.toLowerCase()
     }).then(function (data) {
-      console.log(data);
-      setUrlCategories("/categories?new=".concat(new Date().getUTCMilliseconds())); // document.getElementById("articleModal").style.display = "none";
-      // document.getElementsByClassName("modal-backdrop")[0].remove();
-      // document
-      //     .getElementsByClassName("modal-open")[0]
-      //     .classList.remove("modal-open");
+      alert("New article added ...");
+      setUrlCategories("/categories?newArticle=".concat(data.id));
+      setUrl("");
     });
   };
 
@@ -4138,7 +4144,8 @@ function ModalMolecule(_ref) {
                   onChange: function onChange(e) {
                     return setUrl(e.target.value);
                   },
-                  required: true
+                  required: true,
+                  value: url
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "mb-3",
@@ -4188,8 +4195,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _services_CRUDService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/CRUDService */ "./resources/js/react/services/CRUDService.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-moment */ "./node_modules/react-moment/dist/index.js");
+/* harmony import */ var react_moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _services_CRUDService__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/CRUDService */ "./resources/js/react/services/CRUDService.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
 
 
 
@@ -4201,28 +4211,28 @@ function ArticleItemOrganism(_ref) {
 
   var moveToHistory = function moveToHistory(id) {
     alert("Soft delete operation for article...");
-    (0,_services_CRUDService__WEBPACK_IMPORTED_MODULE_1__.updateApiCall)("/articles/".concat(id, "/update")).then(function (data) {
+    (0,_services_CRUDService__WEBPACK_IMPORTED_MODULE_2__.updateApiCall)("/articles/".concat(id, "/update")).then(function (data) {
       setUrlArticles(urlArticles + '?soft=' + id);
     });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     className: "col-md-4 my-2",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "card text-center h-100",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "card-body",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("h5", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h5", {
           className: "card-title",
           children: item.title
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
           className: "card-text text-truncate",
           children: item.description
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("a", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
           href: item.url,
           className: "btn btn-outline-info",
           target: "_blank",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("svg", {
             xmlns: "http://www.w3.org/2000/svg",
             width: "20",
             height: "20",
@@ -4233,20 +4243,20 @@ function ArticleItemOrganism(_ref) {
             strokeLinecap: "round",
             strokeLinejoin: "round",
             className: "feather feather-mouse-pointer",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               d: "M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               d: "M13 13l6 6"
             })]
           }), "Visit Article"]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "card-footer d-flex justify-content-between",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           onClick: function onClick() {
             return moveToHistory(item.article_id);
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("svg", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("svg", {
             className: "text-danger feather feather-trash-2 cursor-pointer",
             xmlns: "http://www.w3.org/2000/svg",
             width: "17",
@@ -4257,26 +4267,29 @@ function ArticleItemOrganism(_ref) {
             strokeWidth: "2",
             strokeLinecap: "round",
             strokeLinejoin: "round",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("polyline", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("polyline", {
               points: "3 6 5 6 21 6"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("path", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("path", {
               d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("line", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("line", {
               x1: "10",
               y1: "11",
               x2: "10",
               y2: "17"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("line", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("line", {
               x1: "14",
               y1: "11",
               x2: "14",
               y2: "17"
             })]
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
             className: "text-muted small mt-1",
-            children: item.created_at
+            children: item.created_at !== null && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)((react_moment__WEBPACK_IMPORTED_MODULE_1___default()), {
+              fromNow: true,
+              children: item.created_at
+            })
           })
         })]
       })]

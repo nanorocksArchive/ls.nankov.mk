@@ -7,24 +7,25 @@ export default function ModalMolecule({ options, setUrlCategories }) {
     const [category, setCategory] = useState("");
 
     const handleChange = (newValue, actionMeta) => {
-        setCategory(newValue.label);
+        if (actionMeta.action === "clear") {
+            setCategory(null);
+            return;
+        } else {
+            console.log("newValue.label", newValue.label);
+            setCategory(newValue.label);
+        }
     };
 
     const storeArticle = (e) => {
         e.preventDefault();
+        console.log(url, category);
         storeApiCall("/articles/store", "POST", {
             url,
             category: category.toLowerCase(),
         }).then((data) => {
-            console.log(data);
-            setUrlCategories(
-                `/categories?new=${new Date().getUTCMilliseconds()}`
-            );
-            // document.getElementById("articleModal").style.display = "none";
-            // document.getElementsByClassName("modal-backdrop")[0].remove();
-            // document
-            //     .getElementsByClassName("modal-open")[0]
-            //     .classList.remove("modal-open");
+            alert("New article added ...");
+            setUrlCategories(`/categories?newArticle=${data.id}`);
+            setUrl("");
         });
     };
 
@@ -71,6 +72,7 @@ export default function ModalMolecule({ options, setUrlCategories }) {
                                         placeholder="e.g https://www.youtube.com/watch?v=HE5vANeK2O0"
                                         onChange={(e) => setUrl(e.target.value)}
                                         required
+                                        value={url}
                                     />
                                 </div>
                                 <div className="mb-3">

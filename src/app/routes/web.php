@@ -29,6 +29,6 @@ Route::get('/articles', [ArticlesController::class, 'index'])->middleware(['auth
 Route::get('/articles/trashed', [ArticlesController::class, 'trashed'])->middleware(['auth'])->name('ajax.articles.trashed');
 Route::put('/articles/{id}/rollback', [ArticlesController::class, 'rollback'])->middleware(['auth'])->name('ajax.articles.trashed');
 Route::get('/categories', [CategoryController::class, 'index'])->middleware(['auth'])->name('ajax.categories');
-Route::post('/articles/store', [ArticlesController::class, 'store'])->middleware(['auth'])->name('ajax.articles.store');
+Route::post('/articles/store', [ArticlesController::class, 'store'])->name('ajax.articles.store');
 Route::put('/articles/{id}/update', [CategoryController::class, 'moveToHistory'])->middleware(['auth'])->name('ajax.articles.store');
 
