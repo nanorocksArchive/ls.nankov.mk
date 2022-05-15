@@ -35,7 +35,7 @@ class ArticlesController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json'
-        ])->post('http://spider-site.nankov.mk', [
+        ])->post(env('SPIDER'), [
             "url" => $request->url
         ]);
 
