@@ -35,7 +35,7 @@ export default function DashboardTemplate(props) {
                 <div className="row">
                     {articles !== null && articles.data.length === 0 && <h3 className="px-3 text-light">No articles...</h3>}
                     {articles !== null &&
-                        articles.data.map((item, index) => {
+                        articles?.data.map((item, index) => {
                             return (
                                 <ArticleItemOrganism
                                     item={item}
