@@ -45,8 +45,8 @@ class ArticlesController extends Controller
         $user = Auth::user();
 
         $article = new Article();
-        $article->title = $dataSet['title'] ?? $request->url;
-        $article->description = $dataSet['description'] ?? $request->url;
+        $article->title = substr($dataSet['title'] ?? $request->url, 0, 200);
+        $article->description = substr($dataSet['description'] ?? $request->url, 0, 200);
         $article->url = $request->url;
         $article->user_id = $user->id;
         $article->save();

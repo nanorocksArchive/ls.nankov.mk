@@ -20,7 +20,8 @@ export const useFetchApi = (endpoint = "/articles", method = "GET") => {
             },
         })
             .then((res) => res.json())
-            .then((data) => setData(data));
+            .then((data) => setData(data))
+            .catch((err) => alert(err.toString()));
     }, [endpoint]);
 
     return {data, setData};

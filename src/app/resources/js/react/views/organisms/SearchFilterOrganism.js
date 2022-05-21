@@ -3,7 +3,12 @@ import Select from "react-select";
 import ModalMolecule from "../molecules/ModalMolecule";
 import { capitalizeFirstLetter } from "./../../util/index";
 
-export default function SearchFilterOrganism({ categories, setUrlCategories, setUrlArticles, urlArticles }) {
+export default function SearchFilterOrganism({
+    categories,
+    setUrlCategories,
+    setUrlArticles,
+    urlArticles,
+}) {
     const [toggleFilter, setToggleFilter] = useState(true);
     const [options, setOptions] = useState([]);
 
@@ -23,34 +28,39 @@ export default function SearchFilterOrganism({ categories, setUrlCategories, set
         .getAttribute("content");
 
     const filterByCategories = (options) => {
-        setLoadingFilter(!loadingFilter)
+        setLoadingFilter(!loadingFilter);
 
-        const categoryIds = [...options.map((item) => item.value)]
+        const categoryIds = [...options.map((item) => item.value)];
 
-        const inCategoryParam = categoryIds.length === 0 ? "" : `inCategory=${categoryIds}`
+        const inCategoryParam =
+            categoryIds.length === 0 ? "" : `inCategory=${categoryIds}`;
 
         setUrlArticles(`${url}/articles?${inCategoryParam}`);
 
         setTimeout(() => {
             setLoadingFilter(false);
-        }, 1000)
-    }
+        }, 1000);
+    };
 
     const [loadingFilterSearch, setLoadingFilterSearch] = useState(false);
 
     const [searchWord, setSearchWord] = useState("");
 
     const filterByWord = (clear = false) => {
-        setLoadingFilterSearch(!loadingFilter)
+        setLoadingFilterSearch(!loadingFilter);
 
-        const wordParam = clear ? searchWord.length === 0 ? "" : `word=${searchWord}` : ''
+        const wordParam = clear
+            ? searchWord.length === 0
+                ? ""
+                : `word=${searchWord}`
+            : "";
 
-        setUrlArticles(`${url}/articles?${wordParam}`)
+        setUrlArticles(`${url}/articles?${wordParam}`);
 
         setTimeout(() => {
             setLoadingFilterSearch(false);
-        }, 1000)
-    }
+        }, 1000);
+    };
 
     return (
         <>
@@ -76,7 +86,10 @@ export default function SearchFilterOrganism({ categories, setUrlCategories, set
                             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
                         </svg>
                     </button>
-                    <ModalMolecule options={options} setUrlCategories={setUrlCategories}/>
+                    <ModalMolecule
+                        options={options}
+                        setUrlCategories={setUrlCategories}
+                    />
                 </div>
             </div>
             <div className={`container ${toggleFilter ? "d-none" : ""}`}>
@@ -125,7 +138,10 @@ export default function SearchFilterOrganism({ categories, setUrlCategories, set
                         <button
                             type="button"
                             className="btn btn-secondary btn-sm ml-2"
-                            onClick={() => { filterByWord(false); setSearchWord("") }}
+                            onClick={() => {
+                                filterByWord(false);
+                                setSearchWord("");
+                            }}
                         >
                             Clear
                         </button>
@@ -147,6 +163,49 @@ export default function SearchFilterOrganism({ categories, setUrlCategories, set
                             className="basic-multi-select bg-dark text-light"
                             classNamePrefix="select"
                             onChange={(e) => filterByCategories(e)}
+                            styles={{
+                                control: (styles) => ({
+                                    ...styles,
+                                    backgroundColor: "black",
+                                }),
+                                option: (
+                                    styles,
+                                    { data, isDisabled, isFocused, isSelected }
+                                ) => {
+                                    return {
+                                        ...styles,
+                                        backgroundColor: isDisabled
+                                            ? undefined
+                                            : isSelected
+                                            ? data.color
+                                            : isFocused
+                                            ? "black"
+                                            : undefined,
+                                        color: isDisabled
+                                            ? "#ccc"
+                                            : isSelected
+                                            ? "black"
+                                            : data.color,
+                                        cursor: isDisabled
+                                            ? "not-allowed"
+                                            : "default",
+
+                                        ":active": {
+                                            ...styles[":active"],
+                                            backgroundColor: !isDisabled
+                                                ? isSelected
+                                                    ? data.color
+                                                    : "black"
+                                                : undefined,
+                                        },
+                                    };
+                                },
+                                input: (styles) => ({ ...styles }),
+                                placeholder: (styles) => ({ ...styles }),
+                                singleValue: (styles, { data }) => ({
+                                    ...styles,
+                                }),
+                            }}
                         />
                         {loadingFilter && (
                             <small className="text-light">Loading...</small>

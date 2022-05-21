@@ -79,7 +79,7 @@
                                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                                         <polyline points="9 22 9 12 15 12 15 22"></polyline>
                                     </svg>
-                                    <span class="d-inline d-sm-none">Home</span>
+                                    <span class="d-inline">Home</span>
                                 </a>
                             </li>
 
@@ -91,7 +91,7 @@
                                         <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
                                         <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
                                     </svg>
-                                    <span class="d-inline d-sm-none">Analytics</span>
+                                    <span class="d-inline">Analytics</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -104,7 +104,7 @@
                                         <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15">
                                         </path>
                                     </svg>
-                                    <span class="d-inline d-sm-none">History</span>
+                                    <span class="d-inline">History</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -115,7 +115,7 @@
                                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                                     </svg>
-                                    <span class="d-inline d-sm-none">Notifications</span>
+                                    <span class="d-inline">Notifications</span>
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -127,7 +127,7 @@
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
-                                    <span class="d-inline d-sm-none text-capitalize">{{ auth()->user()->name }}</span>
+                                    <span class="d-inline text-capitalize">{{ auth()->user()->name }}</span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

@@ -3,6 +3,11 @@
     background-color: #343a40 !important;
 }
 
+.select__control:hover, .select__menu:hover, #creatable-select2:hover, .css-1s2u09g-control:hover, .css-26l3qy-menu:hover {
+    color: #f8f9fa !important;
+    background-color: #343a40 !important;
+}
+
 .cursor-pointer{
     cursor: pointer;
 }

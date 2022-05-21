@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import { storeApiCall } from "../../services/CRUDService";
+import { X } from "react-feather";
 
 export default function ModalMolecule({ options, setUrlCategories }) {
     const [url, setUrl] = useState("");
@@ -50,14 +51,15 @@ export default function ModalMolecule({ options, setUrlCategories }) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="articleModalLabel">
-                                Modal title
+                                New Article
                             </h5>
-                            <button
-                                type="button"
-                                className="btn-close"
+                            <div
+                                className="pointer"
                                 data-bs-dismiss="modal"
                                 aria-label="Close"
-                            ></button>
+                            >
+                                <X size={16} />
+                            </div>
                         </div>
                         <div className="modal-body">
                             <form onSubmit={storeArticle}>
@@ -88,6 +90,60 @@ export default function ModalMolecule({ options, setUrlCategories }) {
                                         onChange={handleChange}
                                         options={options}
                                         required
+                                        styles={{
+                                            control: (styles) => ({
+                                                ...styles,
+                                                backgroundColor: "black",
+                                            }),
+                                            option: (
+                                                styles,
+                                                {
+                                                    data,
+                                                    isDisabled,
+                                                    isFocused,
+                                                    isSelected,
+                                                }
+                                            ) => {
+                                                return {
+                                                    ...styles,
+                                                    backgroundColor: isDisabled
+                                                        ? undefined
+                                                        : isSelected
+                                                        ? data.color
+                                                        : isFocused
+                                                        ? "black"
+                                                        : undefined,
+                                                    color: isDisabled
+                                                        ? "#ccc"
+                                                        : isSelected
+                                                        ? "black"
+                                                        : data.color,
+                                                    cursor: isDisabled
+                                                        ? "not-allowed"
+                                                        : "default",
+
+                                                    ":active": {
+                                                        ...styles[":active"],
+                                                        backgroundColor:
+                                                            !isDisabled
+                                                                ? isSelected
+                                                                    ? data.color
+                                                                    : "black"
+                                                                : undefined,
+                                                    },
+                                                };
+                                            },
+                                            input: (styles) => ({ ...styles }),
+                                            placeholder: (styles) => ({
+                                                ...styles,
+                                            }),
+                                            singleValue: (
+                                                styles,
+                                                { data }
+                                            ) => ({
+                                                ...styles,
+                                            }),
+                                        }}
                                     />
                                 </div>
                                 <div>
