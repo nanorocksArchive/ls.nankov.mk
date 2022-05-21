@@ -27,7 +27,7 @@ export default function ModalMolecule({ options, setUrlCategories }) {
             alert("New article added ...");
             setUrlCategories(`/categories?newArticle=${data.id}`);
             setUrl("");
-        });
+        }).catch((err) => alert(err.toString()));
     };
 
     return (

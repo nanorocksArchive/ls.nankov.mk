@@ -7,7 +7,7 @@ export default function ArticleItemOrganism({ item, setUrlArticles, urlArticles 
         alert("Soft delete operation for article...");
         updateApiCall(`/articles/${id}/update`).then((data) => {
             setUrlArticles(urlArticles + '?soft=' + id)
-        });
+        }).catch((err) => alert(err.toString()));
     };
 
     return (

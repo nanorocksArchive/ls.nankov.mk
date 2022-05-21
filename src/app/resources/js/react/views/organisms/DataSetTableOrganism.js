@@ -10,7 +10,7 @@ export default function DataSetTableOrganism({ articles, setUrlArticles }) {
         updateApiCall(`/articles/${article.id}/rollback`).then((data) => {
             alert("Rollback operation for old article ...")
             setUrlArticles(`/articles/trashed?rollback=${article.id}`);
-        });
+        }).catch((err) => alert(err.toString()));
     };
 
     return (
