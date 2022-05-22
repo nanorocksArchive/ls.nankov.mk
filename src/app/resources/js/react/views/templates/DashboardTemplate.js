@@ -25,32 +25,40 @@ export default function DashboardTemplate(props) {
 
     return (
         <>
-            <SearchFilterOrganism
-                categories={categories}
-                setUrlCategories={setUrlCategories}
-                urlArticles={urlArticles}
-                setUrlArticles={setUrlArticles}
-            />
+            <Suspense fallback="Loading ...">
+                <SearchFilterOrganism
+                    categories={categories}
+                    setUrlCategories={setUrlCategories}
+                    urlArticles={urlArticles}
+                    setUrlArticles={setUrlArticles}
+                />
+            </Suspense>
             <div className="container">
                 <div className="row">
-                    {articles !== null && articles.data.length === 0 && <h3 className="px-3 text-light">No articles...</h3>}
-                    {articles !== null &&
-                        articles?.data.map((item, index) => {
-                            return (
-                                <ArticleItemOrganism
-                                    item={item}
-                                    key={index}
-                                    setUrlArticles={setUrlArticles}
-                                    urlArticles={urlArticles}
-                                />
-                            );
-                        })}
+                    <Suspense fallback="Loading ...">
+                        {articles !== null && articles.data.length === 0 && (
+                            <h3 className="px-3 text-light">No articles...</h3>
+                        )}
+                        {articles !== null &&
+                            articles?.data.map((item, index) => {
+                                return (
+                                    <ArticleItemOrganism
+                                        item={item}
+                                        key={index}
+                                        setUrlArticles={setUrlArticles}
+                                        urlArticles={urlArticles}
+                                    />
+                                );
+                            })}
+                    </Suspense>
                 </div>
             </div>
-            <PaginationOrganism
-                setUrlArticles={setUrlArticles}
-                data={articles}
-            />
+            <Suspense fallback="Loading ...">
+                <PaginationOrganism
+                    setUrlArticles={setUrlArticles}
+                    data={articles}
+                />
+            </Suspense>
         </>
     );
 }
