@@ -11,7 +11,7 @@ export default function DashboardTemplate(props) {
     const { data: articles } = useFetchApi(urlArticles);
     const { data: categories } = useFetchApi(urlCategories);
 
-    if (articles === null) {
+    if (articles === null || categories === null) {
         return (
             <>
                 <div className="container">

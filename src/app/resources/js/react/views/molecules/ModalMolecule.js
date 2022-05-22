@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import CreatableSelect from "react-select/creatable";
+
 import { storeApiCall } from "../../services/CRUDService";
 import { X } from "react-feather";
+import CreatableSelect from "../atoms/CreatableSelect2";
 
 export default function ModalMolecule({ options, setUrlCategories }) {
     const [url, setUrl] = useState("");
@@ -23,11 +24,13 @@ export default function ModalMolecule({ options, setUrlCategories }) {
         storeApiCall("/articles/store", "POST", {
             url,
             category: category.toLowerCase(),
-        }).then((data) => {
-            alert("New article added ...");
-            setUrlCategories(`/categories?newArticle=${data.id}`);
-            setUrl("");
-        }).catch((err) => alert(err.toString()));
+        })
+            .then((data) => {
+                alert("New article added ...");
+                setUrlCategories(`/categories?newArticle=${data.id}`);
+                setUrl("");
+            })
+            .catch((err) => alert(err.toString()));
     };
 
     return (
@@ -85,65 +88,9 @@ export default function ModalMolecule({ options, setUrlCategories }) {
                                         Select or create category
                                     </label>
                                     <CreatableSelect
-                                        id="creatable-select2"
-                                        isClearable
-                                        onChange={handleChange}
                                         options={options}
-                                        required
-                                        styles={{
-                                            control: (styles) => ({
-                                                ...styles,
-                                                backgroundColor: "black",
-                                            }),
-                                            option: (
-                                                styles,
-                                                {
-                                                    data,
-                                                    isDisabled,
-                                                    isFocused,
-                                                    isSelected,
-                                                }
-                                            ) => {
-                                                return {
-                                                    ...styles,
-                                                    backgroundColor: isDisabled
-                                                        ? undefined
-                                                        : isSelected
-                                                        ? data.color
-                                                        : isFocused
-                                                        ? "black"
-                                                        : undefined,
-                                                    color: isDisabled
-                                                        ? "#ccc"
-                                                        : isSelected
-                                                        ? "black"
-                                                        : data.color,
-                                                    cursor: isDisabled
-                                                        ? "not-allowed"
-                                                        : "default",
-
-                                                    ":active": {
-                                                        ...styles[":active"],
-                                                        backgroundColor:
-                                                            !isDisabled
-                                                                ? isSelected
-                                                                    ? data.color
-                                                                    : "black"
-                                                                : undefined,
-                                                    },
-                                                };
-                                            },
-                                            input: (styles) => ({ ...styles }),
-                                            placeholder: (styles) => ({
-                                                ...styles,
-                                            }),
-                                            singleValue: (
-                                                styles,
-                                                { data }
-                                            ) => ({
-                                                ...styles,
-                                            }),
-                                        }}
+                                        handleChange={handleChange}
+                                        id="category-creatable-select2"
                                     />
                                 </div>
                                 <div>
